@@ -1,4 +1,4 @@
-This library was built from the PJSIP source at https://www.pjsip.org/download.htm
+This library was built from the PJSIP source at [https://www.pjsip.org/download.htm](https://www.pjsip.org/download.htm)
 
 We'll be harnessing the power and simplicity of the PJSUA2 project within this.
 
@@ -10,7 +10,7 @@ The build machine was running Visual Studio (Community) 2017 with:
 - Universal Windows Platform development (not essential)
 - Python development
 
-SwigWin was also installed from http://www.swig.org/download.html and the path to "swig.exe" was added to the system path variable.
+SwigWin was also installed from [http://www.swig.org/download.html](http://www.swig.org/download.html) and the path to "swig.exe" was added to the system path variable.
 
 
 The PJSIP source has a VS2015 solution "pjproject-vs14.sln" which can be opened and upgraded to later versions (e.g. VS2017) for building the source.
