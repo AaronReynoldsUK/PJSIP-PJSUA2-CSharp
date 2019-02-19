@@ -22,6 +22,8 @@ The source came with a "swig_java_pjsua2" folder which was unloaded but is a var
 
 Once you have the source downloaded, create a blank file "config_site.h" in the "pjlib/include/pj/" folder. This can be used to set specific properties but for simplicity at this stage a blank file is used to allow default build settings.
 
+Now change the build type to "Debug Dynamic" or "Release Dynamic". You may not need this step, but I did.
+
 Next, try building the solution. You find you have issues with some of the projects. If so, try building specific projects on their own if the errors aren't obvious to trace.
 
 Once the solution is built you can use "SWIG" to generate a wrapper for the PJSUA2 library.
@@ -51,7 +53,8 @@ Then open "pjsip-apps/src/swig/csharp" and copy and paste into the project the f
 - pjsua2_wrap.cpp
 - pjsua2.i
 
-Next you want to amend the project properties in several places. So first, open the Property Pages for your project and ensure the following values are set:
+Next you want to amend the project properties in several places.
+So first, open the Property Pages for your project and ensure the following values are set:
 
 General
 - Target Name = PJSUA2
@@ -62,4 +65,32 @@ General
 C/C++ - General
 - Additional Include Directories = ../pjsip/include;../pjlib/include;../pjlib-util/include;../pjmedia/include;../pjnath/include;%(AdditionalIncludeDirectories);
 
-Linker
+Linker - Input (or in All Options)
+- Additional Dependencies = Iphlpapi.lib;dsound.lib;dxguid.lib;netapi32.lib;mswsock.lib;ws2_32.lib;odbc32.lib;odbccp32.lib;ole32.lib;user32.lib;gdi32.lib;advapi32.lib;%(AdditionalDependencies)
+- Ignore Specific Default Libraries = msvcrt.lib;%(IgnoreSpecificDefaultLibraries)
+
+Once again, the paths may need adjusting for your solution so if you get a file not found-type error, the include directories paths may need to be adjusted.
+
+Now open the Project Properties and select the Project Dependencies. You can select pretty much all of the projects in the solution but the key ones are those referenced in the include paths above:
+- libpjproject
+- pjlib
+- pjlib_util
+- pjmedia
+- pjnath
+- pjsua2_lib
+
+This is because these projects already reference others that they need.
+
+You can now go ahead and try to build your new project. If it suceeds, you'll have a set of files in the output directory (as set in the project's Property Pages). By default this should be something like:
+- $(SolutionDir)$(Configuration)\
+which equates to the "Debug" folder in the the solution's main folder. It's the DLL file that you're most interested in.
+
+That's you mostly done.
+
+To use this now in a C# project, add the .cs files that were generated earlier into a new C# project and reference this DLL.
+Don't include the sample.cs file if it is in the folder as it may have incorrect references, but you can use code within this file to test your work so far.
+
+Good luck :)
+
+
+
