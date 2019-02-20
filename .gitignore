@@ -7,3 +7,5 @@
 /.vs/slnx.sqlite
 /.vs
 /PJSIP_PJSUA2_CSharp/obj
+/PJSIP_PJSUA2_CSharp/.vs/PJSIP_PJSUA2_CSharp/v15/Server/sqlite3
+/SoftPhone/obj/Debug
