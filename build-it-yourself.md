@@ -2,7 +2,7 @@ This library was built from the PJSIP source at [https://www.pjsip.org/download.
 
 We'll be harnessing the power and simplicity of the PJSUA2 project within this.
 
-It uses the latest Windows 10 SDK version (10.0.17763.0) but you could build it against earliest or later versions.
+It uses the latest Windows 10 SDK version (10.0.17763.0) but you could build it against earlier or later versions.
 
 The build machine was running Visual Studio (Community) 2017 with:
 - .NET desktop development
@@ -15,7 +15,7 @@ SwigWin was also installed from [http://www.swig.org/download.html](http://www.s
 
 The PJSIP source has a VS2015 solution "pjproject-vs14.sln" which can be opened and upgraded to later versions (e.g. VS2017) for building the source.
 
-Once the solution is open, if you wish, you can disable "test" projects etc (as has been done to build this). You should also retarget the solution if you are using a newer build that the original source. The simplest way to do this is via the "Project" menu in Visual Studio.
+Once the solution is open, if you wish, you can disable "test" projects etc (as has been done to build this). You should also retarget the solution if you are using a newer build than the original source. The simplest way to do this is via the "Project" menu in Visual Studio.
 
 The source came with a "swig_java_pjsua2" folder which was unloaded but is a variation of the key project we'll be adding to the solution.
 
@@ -24,7 +24,7 @@ Once you have the source downloaded, create a blank file "config_site.h" in the 
 
 Now change the build type to "Debug Dynamic" or "Release Dynamic". You may not need this step, but I did.
 
-Next, try building the solution. You find you have issues with some of the projects. If so, try building specific projects on their own if the errors aren't obvious to trace.
+Next, try building the solution. You may find you have issues with some of the projects. If so, try building specific projects on their own if the errors aren't obvious to trace.
 
 Once the solution is built you can use "SWIG" to generate a wrapper for the PJSUA2 library.
 
@@ -35,7 +35,7 @@ If you've already added the path to "SWIG" to the system path, you can run the f
 > swig -I../../../../pjlib/include -I../../../../pjlib-util/include -I../../../../pjmedia/include -I../../../../pjsip/include -I../../../../pjnath/include -w312 -c++ -csharp -o pjsua2_wrap.cpp ../pjsua2.i
 
 This uses the "pjsua2.i" file and others as a template/instructions to generate the C# class files and C++ files to wrap the PJSUA2 library.
-The relative paths should point the relavant source directories but can you experiment if these paths don't work for you.
+The relative paths should point the relavant source directories but you can experiment if these paths don't work for you.
 
 One the process is complete you'll have a series of .cs class files in the "csharp" subfolder.
 
@@ -69,7 +69,7 @@ Linker - Input (or in All Options)
 - Additional Dependencies = Iphlpapi.lib;dsound.lib;dxguid.lib;netapi32.lib;mswsock.lib;ws2_32.lib;odbc32.lib;odbccp32.lib;ole32.lib;user32.lib;gdi32.lib;advapi32.lib;%(AdditionalDependencies)
 - Ignore Specific Default Libraries = msvcrt.lib;%(IgnoreSpecificDefaultLibraries)
 
-Once again, the paths may need adjusting for your solution so if you get a file not found-type error, the include directories paths may need to be adjusted.
+Once again, the paths may need adjusting for your solution so if you get a file-not-found type of error, the include directories paths may need to be adjusted.
 
 Now open the Project Properties and select the Project Dependencies. You can select pretty much all of the projects in the solution but the key ones are those referenced in the include paths above:
 - libpjproject
