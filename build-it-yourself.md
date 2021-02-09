@@ -1,10 +1,12 @@
+_Updated 9th February 2021 using PJSIP version 2.10_
+
 This library was built from the PJSIP source at [https://www.pjsip.org/download.htm](https://www.pjsip.org/download.htm)
 
 We'll be harnessing the power and simplicity of the PJSUA2 project within this.
 
-It uses the latest Windows 10 SDK version (10.0.17763.0) but you could build it against earlier or later versions.
+I'm using the latest Windows 10 SDK version (10.0.18362.0) but you could build it against earlier or later versions.
 
-The build machine was running Visual Studio (Community) 2017 with:
+The build machine was running Visual Studio (Community) 2019 with:
 - .NET desktop development
 - Desktop development with C++
 - Universal Windows Platform development (not essential)
@@ -12,8 +14,7 @@ The build machine was running Visual Studio (Community) 2017 with:
 
 SwigWin was also installed from [http://www.swig.org/download.html](http://www.swig.org/download.html) and the path to "swig.exe" was added to the system path variable.
 
-
-The PJSIP source has a VS2015 solution "pjproject-vs14.sln" which can be opened and upgraded to later versions (e.g. VS2017) for building the source.
+The PJSIP source has a VS2015 solution "pjproject-vs14.sln" which can be opened and upgraded to later versions (e.g. VS2019) for building the source. In my case it warned that it couldn't open a few projects in the solution but they were platform-specific so nothing to worry about.
 
 Once the solution is open, if you wish, you can disable "test" projects etc (as has been done to build this). You should also retarget the solution if you are using a newer build than the original source. The simplest way to do this is via the "Project" menu in Visual Studio.
 
@@ -34,10 +35,15 @@ If you've already added the path to "SWIG" to the system path, you can run the f
 
 > swig -I../../../../pjlib/include -I../../../../pjlib-util/include -I../../../../pjmedia/include -I../../../../pjsip/include -I../../../../pjnath/include -w312 -c++ -csharp -o pjsua2_wrap.cpp ../pjsua2.i
 
-This uses the "pjsua2.i" file and others as a template/instructions to generate the C# class files and C++ files to wrap the PJSUA2 library.
-The relative paths should point the relavant source directories but you can experiment if these paths don't work for you.
+This uses the "pjsua2.i" file and others as a template/instructions to generate the C# class files and C++ files to wrap the PJSUA2 library. The relative paths should point the relavant source directories but you can experiment if these paths don't work for you.
 
-One the process is complete you'll have a series of .cs class files in the "csharp" subfolder.
+Or probably easier to read if I write it this way with the project in a folder on my 'C' drive:
+
+> swig -I"C:\Code-Downloaded\pjproject-2.10\pjlib\include" -I"C:\Code-Downloaded\pjproject-2.10\pjlib-util\include" -I"C:\Code-Downloaded\pjproject-2.10\pjmedia\include" -I"C:\Code-Downloaded\pjproject-2.10\pjsip\include" -I"C:\Code-Downloaded\pjproject-2.10\pjnath\include" -w312 -c++ -csharp -o pjsua2_wrap.cpp "C:\Code-Downloaded\pjproject-2.10\pjsip-apps\src\swig\pjsua2.i"
+
+...and yes that's all one line.
+
+One the process is complete you'll have a series of .cs class files in the "csharp" subfolder along with a couple of C++ (.h + .cpp) files.
 
 The next step is to create a new project in the solution which will build the managed DLL that you can use from a C# project.
 
@@ -56,10 +62,12 @@ Then open "pjsip-apps/src/swig/csharp" and copy and paste into the project the f
 Next you want to amend the project properties in several places.
 So first, open the Property Pages for your project and ensure the following values are set:
 
-General
-- Target Name = PJSUA2
-- Target Extension = .dll
+On 2019:
+Configuration Properties - General:
+- Target Name = PJSUA2 (or whatever you fancy)
 - Configuration Type = Dynamic Library (.dll)
+Configuration Properties - Advanced:
+- Target FileExtension = .dll
 - Common Language Runtime Support = Common Language Runtime Support (/clr)
 
 C/C++ - General
