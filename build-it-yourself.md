@@ -23,7 +23,7 @@ The source came with a "swig_java_pjsua2" folder which was unloaded but is a var
 
 Once you have the source downloaded, create a blank file "config_site.h" in the "pjlib/include/pj/" folder. This can be used to set specific properties but for simplicity at this stage a blank file is used to allow default build settings.
 
-Now change the build type to "Debug Dynamic" or "Release Dynamic". You may not need this step, but I did.
+Now change the build type to "Debug Dynamic" or "Release Dynamic". You may not need this step, but I did. As in: I could not build this under "Release".
 
 Next, try building the solution. You may find you have issues with some of the projects. If so, try building specific projects on their own if the errors aren't obvious to trace.
 
@@ -72,6 +72,8 @@ Configuration Properties - Advanced:
 
 C/C++ - General
 - Additional Include Directories = ../pjsip/include;../pjlib/include;../pjlib-util/include;../pjmedia/include;../pjnath/include;%(AdditionalIncludeDirectories);
+- Precompiled Headers - "Not Using..."
+(if VS has added 'pch' or 'framework' files, remove them)
 
 Linker - Input (or in All Options)
 - Additional Dependencies = Iphlpapi.lib;dsound.lib;dxguid.lib;netapi32.lib;mswsock.lib;ws2_32.lib;odbc32.lib;odbccp32.lib;ole32.lib;user32.lib;gdi32.lib;advapi32.lib;%(AdditionalDependencies)
